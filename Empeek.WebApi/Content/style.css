@@ -1,0 +1,40 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+body {
+  font-family: "Open Sans", Arial;
+  font-size: medium;
+}
+.pagination {
+	margin: 0 0 1em;
+}
+table {
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+span.sortable {
+	cursor: pointer;
+}
+th {
+    background: #CCC;
+    width:40%;
+}
+tr:nth-child(even) {
+    background: #EEE;
+}
+tr:nth-child(odd) {
+    background: #FFF
+
+}
+.paginator {
+    text-align: center;
+}
+table{
+    min-height: 12em;
+}
+div {
+    display:block;
+}
+p{
+    margin:2%;
+}
+a{
+    text-decoration:underline;
+}

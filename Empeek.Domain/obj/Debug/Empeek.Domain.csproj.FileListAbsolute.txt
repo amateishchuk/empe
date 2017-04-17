@@ -1,0 +1,14 @@
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\Empeek.Domain.dll.config
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\Empeek.Domain.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\Empeek.Domain.pdb
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\EntityFramework.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\System.Data.SQLite.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\EntityFramework.xml
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\bin\Debug\System.Data.SQLite.xml
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\obj\Debug\Empeek.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\obj\Debug\Empeek.Domain.dll
+C:\Users\Administrator\Desktop\Empeek\Empeek.Domain\obj\Debug\Empeek.Domain.pdb

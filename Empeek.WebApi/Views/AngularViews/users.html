@@ -1,0 +1,81 @@
+﻿
+    <h1 class="text-center">All Users</h1>
+<div class="row">
+    <p>
+        &nbsp;
+    </p>
+</div>
+
+<div class="row">
+    <form name="userForm" class="form-inline col-sm-offset-4" ng-submit="addUser()" novalidate>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </span>
+                <input type="text" name="name" class="form-control" ng-model="newUserName" required>
+            </div>
+
+            <button type="submit" class="btn btn-info" ng-disabled="userForm.$invalid">Add</button>
+        </div>
+
+
+
+
+    </form>
+
+    </div>
+
+    <div class="col-sm-8 col-sm-offset-2">
+        <hr />
+    </div>
+    <div class="row">
+        <div class="table-responsive col-sm-offset-3 col-sm-6">
+
+            <table class="table table-bordered">
+                <caption>Total count: {{users.length}}</caption>
+                <thead>
+                    <tr>
+                        <th class="sortable">
+                            <span>
+                                Name
+                                <span class="pull-right sortable" ng-click="sortType = 'Name'; sortReverse = !sortReverse">
+                                    <span ng-show="sortType == 'Name' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                    <span ng-show="sortType == 'Name' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                </span>
+                            </span>
+
+                        </th>
+                        <th>
+                            Pets Count
+                        </th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="user in users | orderBy:sortType:sortReverse"
+                        data-ng-show="($index >= firstIndex) && ($index < lastIndex)">
+                        <td>
+                            <a href="#/pets/{{user.Id}}"><span class="text-capitalize">{{ user.Name }}</span></a>
+
+                        </td>
+                        <td>
+                            {{ user.PetsCount }} <button class="btn btn-warning btn-sm pull-right" ng-click="deleteUser(user.Id, user.Name);">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="paginator">
+        <uib-pagination data-total-items="users.length"
+                        ng-model="currentPage"
+                        data-ng-change="updatePageIndexes()"
+                        data-max-size="maxPaginationSize"
+                        data-items-per-page="itemsPerPage"
+                        data-boundary-links="true"
+                        data-direction-links="false"
+                        data-first-text="&laquo;"
+                        data-last-text="&raquo;">
+        </uib-pagination>
+    </p>

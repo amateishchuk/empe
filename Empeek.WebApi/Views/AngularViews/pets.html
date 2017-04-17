@@ -1,0 +1,75 @@
+﻿<h1 class="text-center">{{userName}}' pets</h1>
+<div class="row">
+    <p>
+        <a class="col-sm-offset-3" href="#/users/{{user.Id}}">Back to all Users</a>
+    </p>
+</div>
+
+<div class="row">
+
+    <form name="petForm" class="form-inline col-sm-offset-4" ng-submit="addPet()" novalidate>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </span>
+                <input type="text" name="name" class="form-control" ng-model="newPetName" required>
+            </div>
+
+            <button type="submit" class="btn btn-info" ng-disabled="petForm.$invalid">Add</button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive col-sm-offset-3 col-sm-6">
+
+        <table class="table table-bordered">
+            <caption>Total count: {{userPets.length}}</caption>
+            <thead>
+                <tr>
+                    <th class="sortable">
+                        <span>
+                            Name
+                            <span class="pull-right sortable" ng-click="sortType = 'Name'; sortReverse = !sortReverse">
+                                <span ng-show="sortType == 'Name' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                <span ng-show="sortType == 'Name' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            </span>
+                        </span>
+
+                    </th>
+                <tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="pet in userPets | orderBy:sortType:sortReverse"
+                    data-ng-show="($index >= firstIndex) && ($index < lastIndex)">
+                    <td>
+                        {{ pet.Name }} <button class="btn btn-warning btn-sm pull-right" ng-click="deletePet(pet.Id, pet.Name);">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="paginator">
+    <p>
+        <uib-pagination data-total-items="userPets.length"
+                        data-ng-model="currentPage"
+                        data-ng-change="updatePageIndexes()"
+                        data-max-size="maxPaginationSize"
+                        data-items-per-page="itemsPerPage"
+                        data-boundary-links="true"
+                        data-previous-text="&lsaquo;"
+                        data-next-text="&rsaquo;"
+                        data-first-text="&laquo;"
+                        data-last-text="&raquo;">
+        </uib-pagination>
+    </p>
+</div>
