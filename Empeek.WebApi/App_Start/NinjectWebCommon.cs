@@ -10,6 +10,7 @@ namespace Empeek.WebApi.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using System.Web.Http;
     using Domain.Abstract;
     using Domain.Concrete;
 
@@ -42,6 +43,10 @@ namespace Empeek.WebApi.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
+
+            //Instruct the Kernel to rebind the HttpConfiguration to the default config instance provided from the GlobalConfiguration
+            kernel.Rebind<HttpConfiguration>().ToMethod(context => GlobalConfiguration.Configuration);
+
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -64,6 +69,6 @@ namespace Empeek.WebApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IOwnerRepository>().To<SQLiteOwnerRepository>();
-        }
+        }        
     }
 }

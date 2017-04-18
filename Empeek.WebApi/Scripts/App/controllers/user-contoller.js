@@ -3,8 +3,7 @@
         $scope.sortType = 'Name';
         $scope.sortReverse = false;
 
-        $scope.currentPage = 2;
-        $scope.maxPaginationSize = 5;
+        $scope.currentPage = 1;
         $scope.itemsPerPage = 3;
 
         $scope.updatePageIndexes = function () {
@@ -14,15 +13,15 @@
 
 
         $scope.getUsers = function () {
-            $http.get('/api/users').success(function (data) {
-                $scope.users = data;
+            $http.get('/api/users').then(function (response) {
+                $scope.users = response.data;
                 $scope.updatePageIndexes();
             });
         };
         $scope.getUsers();
         $scope.deleteUser = function (id, name) {
             if (confirm('Do you want to remove ' + name + ' from database?')) {
-                $http.delete('/api/Users/' + id).success(function (data) {
+                $http.delete('/api/Users/' + id).then(function (data) {
                     $location.path('/users/');
                 }).error(function (data) {
                     alert("An error has occured while deleting employee! " + data);
@@ -33,7 +32,7 @@
             var user = {
                 name: $scope.newUserName,
             };
-            $http.post('/api/Users/', user).success(function (data) {
+            $http.post('/api/Users/', user).then(function (data) {
                 $location.path('/users/');
             }).error(function (data) {
                 alert($scope.newUserName + " exists");

@@ -13,3 +13,7 @@
         redirectTo: "/users"
     });
 });
+
+zooApp.config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.hashPrefix('');
+}]);

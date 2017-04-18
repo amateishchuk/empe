@@ -67,15 +67,14 @@
             </table>
         </div>
     </div>
-    <p class="paginator">
-        <uib-pagination data-total-items="users.length"
-                        ng-model="currentPage"
-                        data-ng-change="updatePageIndexes()"
-                        data-max-size="maxPaginationSize"
-                        data-items-per-page="itemsPerPage"
-                        data-boundary-links="true"
-                        data-direction-links="false"
-                        data-first-text="&laquo;"
-                        data-last-text="&raquo;">
-        </uib-pagination>
-    </p>
+        <ul uib-pagination total-items="users.length"
+            ng-model="currentPage"
+            ng-change="updatePageIndexes()"
+            max-size="5"
+            items-per-page="itemsPerPage"
+            boundary-links="true"
+            previous-text="&lsaquo;"
+            next-text="&rsaquo;"
+            first-text="&laquo;"
+            last-text="&raquo;"
+            direction-links="false"></ul>

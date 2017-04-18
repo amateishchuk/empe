@@ -4,7 +4,6 @@
         $scope.sortReverse = false;
 
         $scope.currentPage = 1;
-        $scope.maxPaginationSize = 5;
         $scope.itemsPerPage = 3;
 
         $scope.updatePageIndexes = function () {
@@ -13,20 +12,20 @@
         };
 
         $scope.getUserPets = function () {
-            $http.get('/api/Pets/' + $routeParams.id).success(function (data) {
-                $scope.userName = data.Name;
-                $scope.userPets = data.Pets;
-                $scope.userId = data.Id;
+            $http.get('/api/Pets/' + $routeParams.id).then(function (response) {
+                $scope.userName = response.data.Name;
+                $scope.userPets = response.data.Pets;
+                $scope.userId = response.data.Id;
                 $scope.updatePageIndexes();
             });
         }
         $scope.getUserPets();
         $scope.deletePet = function (id, name) {
             if (confirm('Do you want to remove ' + name + ' from database?')) {
-                $http.delete('/api/Pets/' + id).success(function (data) {
+                $http.delete('/api/Pets/' + id).then(function (response) {
                     $location.path('/pets/' + $scope.userId + '/');
-                }).error(function (data) {
-                    alert("An error has occured while deleting employee! " + data);
+                }).error(function (response) {
+                    alert("An error has occured while deleting employee! " + response.data);
                 });
             }
         };
@@ -35,9 +34,9 @@
                 Name: $scope.newPetName,
                 UserId: $scope.userId
             };
-            $http.post('/api/Pets/', pet).success(function (data) {
+            $http.post('/api/Pets/', pet).then(function (response) {
                 $location.path('/pets/' + $scope.userId + '/');
-            }).error(function (data) {
+            }).error(function (response) {
                 alert("You have pet with such name. (" + pet.name + ")");
             });
 
