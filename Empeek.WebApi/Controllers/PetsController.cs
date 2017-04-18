@@ -19,12 +19,6 @@ namespace Empeek.WebApi.Controllers
             repository = repo;
         }
 
-        [HttpGet]
-        public IHttpActionResult Get(int id)
-        {
-            return Ok(repository.Users.FirstOrDefault(u => u.Id == id));
-        }
-
         [HttpPost]
         public HttpResponseMessage Post(Pet pet)
         {

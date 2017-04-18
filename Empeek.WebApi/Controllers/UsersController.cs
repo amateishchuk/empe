@@ -12,28 +12,42 @@ namespace Empeek.WebApi.Controllers
     public class UsersController : ApiController
     {
         IOwnerRepository repository;
+        int size = 3;
         public UsersController(IOwnerRepository repo)
         {
             repository = repo;
         }
 
         [HttpGet]
-        public IEnumerable<object> Get()
+        public HttpResponseMessage Get(int page = 1)
         {
             var users = repository.Users.Select(u => new
             {
                 Id = u.Id,
                 Name = u.Name,
                 PetsCount = u.Pets.Count
-            }).OrderBy(u => u.Name).ThenBy(u => u.PetsCount).ToList();
+            })
+            .OrderBy(u => u.Name)
+            .ThenBy(u => u.PetsCount)
+            .Skip((page - 1) * size)
+            .Take(size);
 
-            return users;
+            return Request.CreateResponse(HttpStatusCode.OK, users);
         }
 
         [HttpGet]
-        public User Get(int id)
+        public HttpResponseMessage Get(int id, int page = 1)
         {
-            return repository.Users.FirstOrDefault(u => u.Id == id);
+            var user = repository.Users.Where(u => u.Id == id).Select(u => new
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Pets = u.Pets.Skip((page - 1) * size).Take(size).Select(p => new {
+                    Id = p.Id,
+                    Name = p.Name
+                })
+            });
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         [HttpPost]

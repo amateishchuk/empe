@@ -17,11 +17,14 @@ namespace Empeek.WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+
+            config.Routes.MapHttpRoute("UserPetsPagination", "api/userId{id}/page{page}", new { controller = "Users" });
+
+            config.Routes.MapHttpRoute("UserPetsDefaultPagination", "api/userId{id}", new { controller = "Users" });
+
+            config.Routes.MapHttpRoute("UsersPagination", "api/{controller}/page{page}");
+
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
         }
     }
 }
