@@ -13,8 +13,6 @@ namespace Empeek.Domain.Abstract
         IEnumerable<Pet> Pets { get; }
         void AddUser(User user);
         void DeleteUser(User user);
-
-        IEnumerable<Pet> GetPetsByUserId(int userId);
         void AddPet(Pet pet);
         void DeletePet(Pet pet);
     }

@@ -19,6 +19,7 @@ namespace Empeek.Domain.Entities
         [StringLength(20)]
         [DataMember]
         public string Name { get; set; }
+        [Required]
         [DataMember]
         public int UserId { get; set; }
         [IgnoreDataMember]

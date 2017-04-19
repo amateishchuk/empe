@@ -41,10 +41,10 @@ namespace Empeek.WebApi.Controllers
             Pet pet = repository.Pets.FirstOrDefault(u => u.Id == id);
             if (pet == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
             repository.DeletePet(pet);
-            return Request.CreateResponse(HttpStatusCode.OK, pet);
+            return Request.CreateResponse(HttpStatusCode.Gone, pet);
         }
     }
 }

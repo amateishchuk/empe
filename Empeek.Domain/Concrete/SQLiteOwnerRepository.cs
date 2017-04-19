@@ -39,12 +39,6 @@ namespace Empeek.Domain.Concrete
             db.Users.Remove(user);
             db.SaveChanges();
         }
-
-        public IEnumerable<Pet> GetPetsByUserId(int userId)
-        {
-            return db.Pets.Where(p => p.UserId == userId).ToList();
-        }
-
         public void AddPet(Pet pet)
         {
             db.Pets.Add(pet);
