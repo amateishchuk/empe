@@ -1,12 +1,20 @@
 ﻿zooApp.config(function ($routeProvider) {
     $routeProvider
+    .when("/users/page:page", {
+        templateUrl: "Views/AngularViews/users.html",
+        controller: "UsersController"
+    })
     .when("/users", {
         templateUrl: "Views/AngularViews/users.html",
-        controller: "UserController"
+        controller: "UsersController"
     })
-    .when("/pets/:id", {
-        templateUrl: "Views/AngularViews/pets.html",
-        controller: "PetController"
+    .when("/user:id/page:page", {
+        templateUrl: "Views/AngularViews/userpets.html",
+        controller: "UserPetsController"
+    })
+    .when("/user:id", {
+        templateUrl: "Views/AngularViews/userpets.html",
+        controller: "UserPetsController"
     })
     .otherwise(
     {

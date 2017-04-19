@@ -38,3 +38,6 @@ p{
 a{
     text-decoration:underline;
 }
+a.btn {
+    text-decoration:none;
+}

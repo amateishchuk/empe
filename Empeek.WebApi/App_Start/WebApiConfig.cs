@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Routing.Constraints;
 
 namespace Empeek.WebApi
 {
@@ -9,22 +10,56 @@ namespace Empeek.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Remove XML formatter
             config.Formatters.Remove(config.Formatters.XmlFormatter);
-
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
+            
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/user{id}/", 
+                new { controller = "Users" }, 
+                new { id = @"\d+" });
 
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/user{id}/reverse", 
+                new { controller = "Users", page = 1, sortReverse = true }, 
+                new { id = @"\d+" });
 
-            config.Routes.MapHttpRoute("UserPetsPagination", "api/userId{id}/page{page}", new { controller = "Users" });
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/user{id}/page{page}", 
+                new { controller = "Users" }, 
+                new { id = @"\d+" });
 
-            config.Routes.MapHttpRoute("UserPetsDefaultPagination", "api/userId{id}", new { controller = "Users" });
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/user{id}/page{page}/reverse", 
+                new { controller = "Users", sortReverse = true }, 
+                new { id = @"\d+" });
 
-            config.Routes.MapHttpRoute("UsersPagination", "api/{controller}/page{page}");
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/{controller}/delete/{id}");
 
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/{controller}/reverse", 
+                new { sortReverse = true });
+
+            config.Routes.MapHttpRoute
+                (null, 
+                "api/{controller}/page{page}");
+
+            config.Routes.MapHttpRoute(
+                null, 
+                "api/{controller}/page{page}/reverse", 
+                new { sortReverse = true });
+
+            config.Routes.MapHttpRoute(
+                "DefaultApi", 
+                "api/{controller}/{id}", 
+                new { id = RouteParameter.Optional });
+
         }
     }
 }

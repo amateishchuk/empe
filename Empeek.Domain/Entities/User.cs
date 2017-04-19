@@ -21,11 +21,16 @@ namespace Empeek.Domain.Entities
         public string Name { get; set; }
 
         [DataMember]
+        [NotMapped]
+        public int PetsCount { get; set; }
+
+        [DataMember]
         public virtual ICollection<Pet> Pets { get; set; }
 
         public User()
         {
             Pets = new List<Pet>();
+            PetsCount = Pets.Count;
         }
     }
 }

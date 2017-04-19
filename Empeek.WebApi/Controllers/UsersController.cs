@@ -1,5 +1,6 @@
 ﻿using Empeek.Domain.Abstract;
 using Empeek.Domain.Entities;
+using Empeek.WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,42 +14,74 @@ namespace Empeek.WebApi.Controllers
     {
         IOwnerRepository repository;
         int size = 3;
+
         public UsersController(IOwnerRepository repo)
         {
             repository = repo;
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int page = 1)
+        public HttpResponseMessage Get(int page = 1, bool sortReverse = false)
         {
-            var users = repository.Users.Select(u => new
-            {
-                Id = u.Id,
-                Name = u.Name,
-                PetsCount = u.Pets.Count
-            })
+            var queryResult =
+                repository.Users.Select(u => new
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    PetsCount = u.Pets.Count
+                });
+
+            queryResult = sortReverse ? queryResult
+            .OrderByDescending(u => u.Name)
+            .ThenByDescending(u => u.PetsCount) :
+
+            queryResult
             .OrderBy(u => u.Name)
-            .ThenBy(u => u.PetsCount)
-            .Skip((page - 1) * size)
-            .Take(size);
+            .ThenByDescending(u => u.PetsCount);
+
+            queryResult = queryResult.Skip((page - 1) * size)
+                .Take(size);
+
+            var users = new UsersListViewModel
+            {
+                UsersCount = repository.Users.Count(),
+                UsersArray = queryResult,
+                ItemsPerPage = size,
+                SortReverse = sortReverse
+            };
+            
 
             return Request.CreateResponse(HttpStatusCode.OK, users);
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int id, int page = 1)
+        public HttpResponseMessage Get(int id, int page = 1, bool sortReverse = false)
         {
-            var user = repository.Users.Where(u => u.Id == id).Select(u => new
+            var user = repository.Users.Where(u => u.Id == id).Select(uvm => new UserViewModel
             {
-                Id = u.Id,
-                Name = u.Name,
-                Pets = u.Pets.Skip((page - 1) * size).Take(size).Select(p => new {
+                Id = uvm.Id,
+                Name = uvm.Name,
+                ItemsPerPage = size,
+                SortReverse = sortReverse,
+                PetsCount = uvm.Pets.Count,
+                Pets = uvm.Pets.Select(p => new PetViewModel
+                {
                     Id = p.Id,
                     Name = p.Name
                 })
-            });
+            }).Single();
+
+            user.Pets = user.SortReverse ? 
+                user.Pets.OrderByDescending(p => p.Id) :
+                user.Pets = user.Pets.OrderBy(p => p.Id);
+
+            user.Pets = user.Pets.Skip((page - 1) * size).Take(size);
+
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
+
+
+        
 
         [HttpPost]
         public HttpResponseMessage Post(User user)

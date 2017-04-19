@@ -1,19 +1,19 @@
-﻿<h1 class="text-center">All Users</h1>
+﻿<h1 class="text-center">{{name}}' pets</h1>
 <div class="row">
     <p>
-        &nbsp;
+        <a class="col-sm-offset-3" href="#/users/">Back to all Users</a>
     </p>
 </div>
 <div class="row">
-    <form name="userForm" class="form-inline col-sm-offset-4" ng-submit="addUser()" novalidate>
+    <form name="petForm" class="form-inline col-sm-offset-4" ng-submit="addPet()" novalidate autocomplete="off">
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-user"></span>
                 </span>
-                <input type="text" name="name" class="form-control" ng-model="newUserName" required placeholder="Enter Pet Owner's Name">
+                <input type="text" name="name" class="form-control" ng-model="newPetName" required placeholder="Enter Pet's Name">
             </div>
-            <button type="submit" class="btn btn-info" ng-disabled="userForm.$invalid">Add</button>
+            <button type="submit" class="btn btn-info" ng-disabled="petForm.$invalid">Add</button>
         </div>
     </form>
 </div>
@@ -23,7 +23,7 @@
 <div class="row">
     <div class="table-responsive col-sm-offset-3 col-sm-6">
         <table class="table table-bordered">
-            <caption>Total count: {{usersCount}}</caption>
+            <caption>Total count: {{petsCount}}</caption>
             <thead>
                 <tr>
                     <th class="sortable">
@@ -35,18 +35,12 @@
                             </span>
                         </span>
                     </th>
-                    <th>
-                        Pets Count
-                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="user in users">
+                <tr data-ng-repeat="pet in pets">
                     <td>
-                        <a href="#/user{{user.Id}}">{{ user.Name }}</a>
-                    </td>
-                    <td>
-                        {{ user.PetsCount }} <a class="btn btn-warning btn-sm pull-right" ng-click="deleteUser(user.Id, user.Name);">Delete</a>
+                        {{ pet.Name}} <a class="btn btn-warning btn-sm pull-right" ng-click="delete(pet.Id, pet.Name);">Delete</a>
                     </td>
                 </tr>
             </tbody>
@@ -54,7 +48,7 @@
     </div>
 </div>
 <div class="text-center">
-    <ul uib-pagination total-items="usersCount"
+    <ul uib-pagination total-items="petsCount"
         ng-model="currentPage"
         ng-change="updatePageIndexes()"
         max-size="5"
@@ -64,6 +58,5 @@
         next-text="&rsaquo;"
         first-text="&laquo;"
         last-text="&raquo;"
-        direction-links="false">
-    </ul>
+        direction-links="false"></ul>
 </div>
