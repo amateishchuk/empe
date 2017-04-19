@@ -40,7 +40,7 @@
             <tbody>
                 <tr data-ng-repeat="pet in pets">
                     <td>
-                        {{ pet.Name}} <a class="btn btn-warning btn-sm pull-right" ng-click="delete(pet.Id, pet.Name);">Delete</a>
+                        {{ pet.Name}} <a class="btn btn-warning btn-sm pull-right" ng-click="deletePet(pet.Id, pet.Name);">Delete</a>
                     </td>
                 </tr>
             </tbody>

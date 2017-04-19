@@ -44,7 +44,7 @@ namespace Empeek.WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
             repository.DeletePet(pet);
-            return Request.CreateResponse(HttpStatusCode.Gone, pet);
+            return Request.CreateResponse(HttpStatusCode.OK, pet);
         }
     }
 }

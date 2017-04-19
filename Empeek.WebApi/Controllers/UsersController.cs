@@ -83,7 +83,7 @@ namespace Empeek.WebApi.Controllers
             }
             catch (Exception e)
             {
-                return Request.CreateResponse(HttpStatusCode.NoContent, e.Message);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Empeek.WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
             repository.DeleteUser(user);
-            return Request.CreateResponse(HttpStatusCode.Gone, user);
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
     }
 }
